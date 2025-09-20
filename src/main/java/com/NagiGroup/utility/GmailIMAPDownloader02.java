@@ -151,15 +151,61 @@ public class GmailIMAPDownloader02 {
 //        String email = ""; // <-- Your Gmail address
 //        String appPassword = ""; // <-- Your app-specific password from Gmail
     	String email = "nagigroup0076@gmail.com";
-        String appPassword = "mnhl ivju dgdq rald";
+        String appPassword = "ueyn hepa zarp cmjt";
         List<String> loadNumbers = List.of(
-        		"6926472","513237093","3662517","2034163","3665817","514038346","513582133","8513772",
-        		"10013283","3665907","6972868","6919925","514971438","3519106-1","514917371","3669507","515248413"
+        		"515816399",
+        		"515581114",
+        		"32477690",
+        		"0080213",
+        		"516702267",
+        		"LD7117RV",
+        		"515581116",
+        		"1002983",
+        		"3692400",
+        		"1000136",
+        		"8577002",
+        		"517471149",
+        		"LD7179RV",
+        		"512 012649",
+        		"19195911",
+        		"LD7180RV",
+        		"LD7192RV",
+        		"516483927",
+        		"516483494",
+        		"516333966",
+        		"1007237",
+        		"516483570",
+        		"1007239",
+        		"516333976",
+        		"3695440",
+        		"32686779",
+        		"32652286",
+        		"32718563",
+        		"1228494",
+        		"518539637",
+        		"516483851",
+        		"516483561",
+        		"512 012976",
+        		"19305357",
+        		"516514255",
+        		"518266030",
+        		"LD7239RV",
+        		"519007148",
+        		"19349395",
+        		"516514493",
+        		"516514426",
+        		"516514516",
+        		"78816498",
+        		"5005556",
+        		"1230259",
+        		"L250624-00427",
+        		"32833159",
+        		"519801305"
 
         	);
 
 
-        String downloadDir = "D:/NAGI_GROUP/DOCUMENTS_2025/MAY/jimmy/DISPATCH RECORD";
+        String downloadDir = "C:/NAGI_GROUP/DOCUMENTS_2025/JUNE/David roc/DISPATCH RECORD";
 
         File directory = new File(downloadDir);
         if (!directory.exists()) {

@@ -98,28 +98,62 @@ public class GmailIMAPDownloader01 {
 //        String email = ""; // <-- Add your email here
 //        String appPassword = ""; // <-- Add your app-specific password here
     	String email = "nagigroup0076@gmail.com";
-        String appPassword = "mnhl ivju dgdq rald";
+        String appPassword = "ueyn hepa zarp cmjt";
 //        List<String> loadNumbers = List.of("3591611", "504308052");
         List<String> loadNumbers = List.of(
-        	    "33149113",
-        	    "141804889",
-        	    "17335103",
-        	    "17349619",
-        	    "5032694",
-        	    "78815606",
-        	    "3667961",
-        	    "32240129",
-        	    "OHW507064",
-        	    "5005546",
-        	    "246064",
-        	    "32240130",
-        	    "31586-04397",
-        	    "102356",
-        	    "3000007261"
+        		"515816399",
+        		"515581114",
+        		"32477690",
+        		"0080213",
+        		"516702267",
+        		"LD7117RV",
+        		"515581116",
+        		"1002983",
+        		"3692400",
+        		"1000136",
+        		"8577002",
+        		"517471149",
+        		"LD7179RV",
+        		"512 012649",
+        		"19195911",
+        		"LD7180RV",
+        		"LD7192RV",
+        		"516483927",
+        		"516483494",
+        		"516333966",
+        		"1007237",
+        		"516483570",
+        		"1007239",
+        		"516333976",
+        		"3695440",
+        		"32686779",
+        		"32652286",
+        		"32718563",
+        		"1228494",
+        		"518539637",
+        		"516483851",
+        		"516483561",
+        		"512 012976",
+        		"19305357",
+        		"516514255",
+        		"518266030",
+        		"LD7239RV",
+        		"519007148",
+        		"19349395",
+        		"516514493",
+        		"516514426",
+        		"516514516",
+        		"78816498",
+        		"5005556",
+        		"1230259",
+        		"L250624-00427",
+        		"32833159",
+        		"519801305"
+
         	);
 
         String downloadDir = "D:/roc_docs01";
-         downloadDir = "D:/NAGI_GROUP/DOCUMENTS_2025/MAY/Umair/DISPATCH RECORD";
+         downloadDir = "C:/NAGI_GROUP/DOCUMENTS_2025/JUNE/David/DISPATCH RECORD";
 
 
         File directory = new File(downloadDir);

@@ -53,5 +53,7 @@ public interface LoadService {
 
 	ApiResponse<Integer> requestToManageNoLogDoc(LoadCompletionModel loadCompletionModel, HttpServletRequest request);
 
+	ApiResponse<List<LoadDto>> geLoadsAsPerPage(int page, int size,int status_id);
+
 
 }

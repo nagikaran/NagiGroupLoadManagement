@@ -134,4 +134,10 @@ public class LoadServiceIMP implements LoadService {
 		return loadRepository.managingNoLogDocument(loadCompletionModel,request);
 	}
 
+	@Override
+	public ApiResponse<List<LoadDto>> geLoadsAsPerPage(int page, int size,int status_id) {
+		// TODO Auto-generated method stub
+		return loadRepository.geLoadsAsPerPage(page,size,status_id);
+	}
+
 }

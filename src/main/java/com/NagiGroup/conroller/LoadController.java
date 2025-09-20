@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.NagiGroup.dto.companyDetails.CompanyNameDto;
@@ -168,5 +169,13 @@ public class LoadController {
 	} 
 	
 	
-			
+	@GetMapping("/get_records_as_per_page")
+	@Operation(summary = "function = get_records_as_per_page")
+	public ApiResponse<List<LoadDto>> geLoadsAsPerPage(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "1") int status_id) {
+		
+		return loadService.geLoadsAsPerPage(page,size,status_id);
+	}
 }

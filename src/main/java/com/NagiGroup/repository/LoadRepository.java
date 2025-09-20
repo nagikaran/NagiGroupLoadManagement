@@ -36,6 +36,7 @@ import com.NagiGroup.dto.companyDetails.CompanyDetailsDto;
 import com.NagiGroup.dto.companyDetails.CompanyNameDto;
 import com.NagiGroup.dto.driverDocument.DocumentFileId;
 import com.NagiGroup.dto.driverDocument.DriverDocumentDto;
+import com.NagiGroup.dto.driverSummary.DriverMonthlySummaryDTO;
 import com.NagiGroup.dto.load.LoadAssignmentDocumentDto;
 import com.NagiGroup.dto.load.LoadDto;
 import com.NagiGroup.dto.load.LoadStatusSummaryDto;
@@ -1986,5 +1987,26 @@ public class LoadRepository {
 	        return new ApiResponse<>(false, "Unexpected error occurred: " + e.getMessage(), false, 0, 0);
 	    }
 	}
+
+	
+	
+	public ApiResponse<List<LoadDto>> geLoadsAsPerPage(int page, int size,int status_id) {
+
+		List<LoadDto> loadDtos = null;
+		try {
+			logger.info("LoadRepository : getLoadByStatusId Start");
+			Object param[] = { status_id,page,size };
+			loadDtos = dbContextserviceBms.QueryToListWithParam(QueryMaster.get_loads_by_status_page_size, param, LoadDto.class);
+			logger.info("LoadRepository : getLoadByStatusId end");
+			return new ApiResponse<List<LoadDto>>(true, "Total Record " + loadDtos.size() + " ", true, loadDtos,
+					loadDtos.size());
+
+		} catch (Exception e) {
+			logger.info("LoadRepository : Exception At : getLoadByStatusId :", e);
+			e.printStackTrace();
+			return new ApiResponse<List<LoadDto>>(false, e.getMessage(), false, null, 0);
+		}
+	}
+	
 
 }

@@ -213,8 +213,17 @@
     <artifactId>spring-test</artifactId>
     <version>5.3.23</version> <!-- Match Spring version used by Spring Boot 2.7.5 -->
 </dependency>
-		
+		   <dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-websocket</artifactId></dependency>
+	<dependency>
+  <groupId>com.google.apis</groupId>
+  <artifactId>google-api-services-gmail</artifactId>
+  <version>v1-rev110-1.25.0</version>
+</dependency>
+
 	</dependencies>
+	
+	
+	
 
 	<build>
 		<plugins>

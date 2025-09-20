@@ -66,4 +66,6 @@ public final class QueryMaster {
 	public static String get_document_details_by_load_and_subfolder= "select * from get_document_details_by_load_and_subfolder(?,?)";
 	public static String update_driver_document_drive_file_id = "select * from update_driver_document_drive_file_id(?,?,?,?,?,?,?,?,?,?)";
 	public static String get_drive_file_id = "select * from get_drive_file_id(?,?)";
+	public static String get_all_loads_as_per_page_parameters;
+	public static String get_loads_by_status_page_size= "select * from get_loads_by_status_page_size(?,?,?)";
 }

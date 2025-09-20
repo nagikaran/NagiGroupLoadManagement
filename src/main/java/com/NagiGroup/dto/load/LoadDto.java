@@ -41,7 +41,7 @@ public class LoadDto {
 		private int status_id;
 		private int company_id;
 		private Boolean tonu;
-		
+		private int total_records ;
 	public int getCompany_id() {
 		return company_id;
 	}
@@ -199,6 +199,12 @@ public class LoadDto {
 	}
 	public void setTonu(Boolean tonu) {
 		this.tonu = tonu;
+	}
+	public int getTotal_records() {
+		return total_records;
+	}
+	public void setTotal_records(int total_records) {
+		this.total_records = total_records;
 	}
 	
 	
