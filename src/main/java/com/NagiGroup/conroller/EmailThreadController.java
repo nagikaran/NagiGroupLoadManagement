@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import com.NagiGroup.utility.ApiResponse;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
 import com.google.api.services.gmail.model.MessagePart;
+import com.google.api.services.gmail.model.MessagePartBody;
 import com.google.api.services.gmail.model.MessagePartHeader;
 import com.google.api.services.gmail.model.Thread;
 
@@ -74,66 +77,95 @@ public class EmailThreadController {
 	
 	
 	@GetMapping("/thread/{threadId}")
-    public Map<String, Object> getThread(@PathVariable String threadId) throws IOException {
-        Map<String, Object> response = new HashMap<>();
+	public Map<String, Object> getThread(@PathVariable String threadId) throws IOException {
+	    Map<String, Object> response = new HashMap<>();
 
-        // Fetch full thread
-        Thread thread = gmail.users().threads().get("me", threadId).execute();
-        response.put("threadId", thread.getId());
-        response.put("messageCount", thread.getMessages().size());
+	    // Fetch full thread
+	    Thread thread = gmail.users().threads().get("me", threadId).execute();
+	    response.put("threadId", thread.getId());
+	    response.put("messageCount", thread.getMessages().size());
 
-        List<Map<String, Object>> messages = new ArrayList<>();
-        for (Message msg : thread.getMessages()) {
-            MessagePart payload = msg.getPayload();
+	    List<Map<String, Object>> messages = new ArrayList<>();
+	    for (Message msg : thread.getMessages()) {
+	        MessagePart payload = msg.getPayload();
 
-            Map<String, Object> messageData = new HashMap<>();
-            messageData.put("subject", getHeader(payload.getHeaders(), "Subject"));
-            messageData.put("from", getHeader(payload.getHeaders(), "From"));
-            messageData.put("to", getHeader(payload.getHeaders(), "To"));
-            messageData.put("date", getHeader(payload.getHeaders(), "Date"));
-            messageData.put("body", getMessageBody(payload));
+	        Map<String, Object> messageData = new HashMap<>();
+	        messageData.put("subject", getHeader(payload.getHeaders(), "Subject"));
+	        messageData.put("from", getHeader(payload.getHeaders(), "From"));
+	        messageData.put("to", getHeader(payload.getHeaders(), "To"));
+	        messageData.put("date", getHeader(payload.getHeaders(), "Date"));
+	        messageData.put("body", getMessageBody(payload));
 
-            // 👉 Check if attachments exist
-            List<String> attachments = new ArrayList<>();
-            if (payload.getParts() != null) {
-                for (MessagePart part : payload.getParts()) {
-                    if (part.getFilename() != null && !part.getFilename().isEmpty()) {
-                        attachments.add(part.getFilename());
-                    }
-                }
-            }
-            messageData.put("attachments", attachments);
+	        // 👉 Collect attachments with filename + attachmentId
+	        List<Map<String, String>> attachments = new ArrayList<>();
+	        if (payload.getParts() != null) {
+	            for (MessagePart part : payload.getParts()) {
+	                if (part.getFilename() != null && !part.getFilename().isEmpty()) {
+	                    Map<String, String> attachment = new HashMap<>();
+	                    attachment.put("filename", part.getFilename());
+	                    attachment.put("mimeType", part.getMimeType());
 
-            messages.add(messageData);
-        }
+	                    if (part.getBody() != null && part.getBody().getAttachmentId() != null) {
+	                        attachment.put("attachmentId", part.getBody().getAttachmentId());
+	                    }
+	                    attachments.add(attachment);
+	                }
+	            }
+	        }
+	        messageData.put("attachments", attachments);
 
-        response.put("messages", messages);
-        return response;
-    }
+	        messages.add(messageData);
+	    }
 
-    private String getHeader(List<MessagePartHeader> headers, String name) {
-        return headers.stream()
-                .filter(h -> h.getName().equalsIgnoreCase(name))
-                .map(MessagePartHeader::getValue)
-                .findFirst()
-                .orElse("");
-    }
+	    response.put("messages", messages);
+	    return response;
+	}
 
-    private String getMessageBody(MessagePart payload) {
-        if (payload == null) return "";
-        if (payload.getBody() != null && payload.getBody().getData() != null) {
-            byte[] decodedBytes = Base64.getUrlDecoder().decode(payload.getBody().getData());
-            return new String(decodedBytes);
-        }
-        if (payload.getParts() != null) {
-            for (MessagePart part : payload.getParts()) {
-                if (part.getMimeType().equals("text/plain") || part.getMimeType().equals("text/html")) {
-                    byte[] decodedBytes = Base64.getUrlDecoder().decode(part.getBody().getData());
-                    return new String(decodedBytes);
-                }
-            }
-        }
-        return "";
-    }
+	private String getHeader(List<MessagePartHeader> headers, String name) {
+	    return headers.stream()
+	            .filter(h -> h.getName().equalsIgnoreCase(name))
+	            .map(MessagePartHeader::getValue)
+	            .findFirst()
+	            .orElse("");
+	}
+
+	private String getMessageBody(MessagePart payload) {
+	    if (payload == null) return "";
+
+	    // Case 1: Direct body
+	    if (payload.getBody() != null && payload.getBody().getData() != null) {
+	        return new String(Base64.getUrlDecoder().decode(payload.getBody().getData()));
+	    }
+
+	    // Case 2: Nested parts (plain / html)
+	    if (payload.getParts() != null) {
+	        for (MessagePart part : payload.getParts()) {
+	            if ((part.getMimeType().equalsIgnoreCase("text/plain") 
+	                 || part.getMimeType().equalsIgnoreCase("text/html"))
+	                    && part.getBody() != null 
+	                    && part.getBody().getData() != null) {
+	                return new String(Base64.getUrlDecoder().decode(part.getBody().getData()));
+	            }
+	        }
+	    }
+	    return "";
+	}
+	@GetMapping("/attachment/{messageId}/{attachmentId}")
+	public ResponseEntity<byte[]> getAttachment(
+	        @PathVariable String messageId, 
+	        @PathVariable String attachmentId) throws IOException {
+	    
+	    MessagePartBody attachPart = gmail.users().messages()
+	            .attachments()
+	            .get("me", messageId, attachmentId)
+	            .execute();
+
+	    byte[] fileBytes = Base64.getUrlDecoder().decode(attachPart.getData());
+
+	    return ResponseEntity.ok()
+	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"file\"")
+	            .body(fileBytes);
+	}
+
 	
 }

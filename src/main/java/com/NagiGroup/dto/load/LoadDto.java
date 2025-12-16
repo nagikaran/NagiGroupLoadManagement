@@ -42,6 +42,10 @@ public class LoadDto {
 		private int company_id;
 		private Boolean tonu;
 		private int total_records ;
+		private String shipping_time_from;
+		private String shipping_time_to;
+		private String delivery_time_from;
+		private String delivery_time_to;
 	public int getCompany_id() {
 		return company_id;
 	}
@@ -205,6 +209,30 @@ public class LoadDto {
 	}
 	public void setTotal_records(int total_records) {
 		this.total_records = total_records;
+	}
+	public String getShipping_time_from() {
+		return shipping_time_from;
+	}
+	public void setShipping_time_from(String shipping_time_from) {
+		this.shipping_time_from = shipping_time_from;
+	}
+	public String getShipping_time_to() {
+		return shipping_time_to;
+	}
+	public void setShipping_time_to(String shipping_time_to) {
+		this.shipping_time_to = shipping_time_to;
+	}
+	public String getDelivery_time_from() {
+		return delivery_time_from;
+	}
+	public void setDelivery_time_from(String delivery_time_from) {
+		this.delivery_time_from = delivery_time_from;
+	}
+	public String getDelivery_time_to() {
+		return delivery_time_to;
+	}
+	public void setDelivery_time_to(String delivery_time_to) {
+		this.delivery_time_to = delivery_time_to;
 	}
 	
 	

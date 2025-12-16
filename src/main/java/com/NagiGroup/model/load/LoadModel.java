@@ -39,9 +39,13 @@ public class LoadModel {
 	private int trailer_used;
 	private int company_id;
 	private String drive_file_id;
+	private String shipping_time_from;
+	private String shipping_time_to;
+	private String delivery_time_from;
+	private String delivery_time_to;
+	
+	
 	 @Nullable
 	  private MultipartFile roc;
 	
-	
-
 }

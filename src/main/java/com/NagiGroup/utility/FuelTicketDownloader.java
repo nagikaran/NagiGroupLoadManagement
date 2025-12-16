@@ -29,10 +29,10 @@ public class FuelTicketDownloader {
 
 	     // Filter for May 2025
 	        Calendar cal = Calendar.getInstance();
-	        cal.set(2025, Calendar.MAY, 1, 0, 0, 0); // May 1, 2025
+	        cal.set(2025, Calendar.NOVEMBER, 1, 0, 0, 0); // May 1, 2025
 	        Date startDate = cal.getTime();
 
-	        cal.set(2025, Calendar.JUNE, 1, 0, 0, 0); // June 1, 2025 (exclusive)
+	        cal.set(2025, Calendar.DECEMBER, 1, 0, 0, 0); // June 1, 2025 (exclusive)
 	        Date endDate = cal.getTime();
 
 	        ReceivedDateTerm afterStart = new ReceivedDateTerm(ComparisonTerm.GE, startDate);
@@ -40,12 +40,12 @@ public class FuelTicketDownloader {
 
 	        SearchTerm dateRange = new AndTerm(afterStart, beforeEnd);
 	        Message[] mayMessages = inbox.search(dateRange);
-	        System.out.println("Filtered May 2025: " + mayMessages.length + " messages");
+	        System.out.println("Filtered SEPTEMBER 2025: " + mayMessages.length + " messages");
 
 	        FetchProfile fp = new FetchProfile();
 	        fp.add(FetchProfile.Item.ENVELOPE); // fetch subject, from, date
 
-	        String directoryPath = "D:/Nagi_Group/fuel_tickets/atwal/";
+	        String directoryPath = "C:/Nagi_Group/NOVEMBER/fuel_tickets/David/";
 	        File directory = new File(directoryPath);
 	        if (!directory.exists() && !directory.mkdirs()) {
 	            System.out.println("Failed to create directory: " + directoryPath);
@@ -73,7 +73,7 @@ public class FuelTicketDownloader {
 	                        : "";
 
 	                if (subject.contains("fuel") && senderName != null &&
-	                        senderName.toLowerCase().contains("Jaswant Atwal")) {
+	                        senderName.equalsIgnoreCase("Davinder Ramana")) {
 
 	                    Date sentDate = msg.getSentDate();
 	                    String dateString = sentDate != null ? sdf.format(sentDate) : "unknown_date";
@@ -122,7 +122,7 @@ public class FuelTicketDownloader {
 
 	public static void main(String[] args) {
 		String yourEmail = "nagigroup0076@gmail.com"; // your email
-		String yourAppPassword = "tayy fiqr rhze yurb";
+		String yourAppPassword = "gzut muvu vbed vesb";
 		downloadFuelTickets(yourEmail, yourAppPassword);
 	}
 }

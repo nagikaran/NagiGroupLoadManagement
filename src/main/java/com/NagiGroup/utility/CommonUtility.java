@@ -12,12 +12,12 @@ import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
@@ -110,6 +110,9 @@ public class CommonUtility {
 	    
 	    return LocalDateTime.parse(dateString, formatter);
 	}
+	
+	
+	
 	 public static boolean deleteFile(String filePath) {
 	        try {
 	            Path path = Paths.get(filePath);
@@ -574,4 +577,27 @@ public class CommonUtility {
 
 	        return mergedOutputStream;
 	    }
+	 
+	 public static LocalDate parseDateOnly(String dateString) {
+		    if (dateString == null || dateString.trim().isEmpty()) {
+		        return null;
+		    }
+
+		    dateString = dateString.replace("%20", " ").trim();
+
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		    return LocalDate.parse(dateString, formatter);
+		}
+	 public static LocalTime parseTimeOnly(String timeString) {
+		    if (timeString == null || timeString.trim().isEmpty()) {
+		        return null;
+		    }
+
+		    timeString = timeString.trim();
+
+		    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+		    return LocalTime.parse(timeString, formatter);
+		}
+
+	 
 }

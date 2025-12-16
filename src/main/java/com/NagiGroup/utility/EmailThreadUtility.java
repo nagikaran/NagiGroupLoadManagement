@@ -29,7 +29,7 @@ public class EmailThreadUtility {
         try {
             Gmail service = GmailConfig.getService();
             LocalDate startDate = LocalDate.parse(load_recieving_date);
-            LocalDate endDate = startDate.plusDays(20);
+            LocalDate endDate = startDate.plusDays(30);
          // Convert LocalDate → LocalDateTime at start of day
             LocalDateTime startDateTime = startDate.atStartOfDay();
             LocalDateTime endDateTime = endDate.atStartOfDay();

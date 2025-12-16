@@ -68,4 +68,7 @@ public final class QueryMaster {
 	public static String get_drive_file_id = "select * from get_drive_file_id(?,?)";
 	public static String get_all_loads_as_per_page_parameters;
 	public static String get_loads_by_status_page_size= "select * from get_loads_by_status_page_size(?,?,?)";
+	public static String get_load_revenue_summary= "select * from get_load_revenue_summary()";
+	public static String insert_load_demo= "select * from insert_load_demo(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	
 }
