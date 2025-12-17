@@ -1,6 +1,7 @@
 package com.NagiGroup.dto.load;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -17,12 +18,12 @@ public class LoadDto {
 		private String load_number;
 		private String source;
 		private String destination;
-		@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	    private LocalDateTime  shipping_date; // timestamp without time zone,
-		@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	    private LocalDateTime  delivery_date; // timestamp without time zone,
-		@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	    private LocalDateTime  eta; // timestamp without time zone,
+		@JsonFormat(pattern = "yyyy-MM-dd")
+	    private LocalDate  shipping_date; // timestamp without time zone,
+		@JsonFormat(pattern = "yyyy-MM-dd")
+	    private LocalDate  delivery_date; // timestamp without time zone,
+		@JsonFormat(pattern = "yyyy-MM-dd")
+	    private LocalDate  eta; // timestamp without time zone,
 		private int driver_id;
 		private String driver_name;
 		private double base_price;
@@ -42,10 +43,14 @@ public class LoadDto {
 		private int company_id;
 		private Boolean tonu;
 		private int total_records ;
-		private String shipping_time_from;
-		private String shipping_time_to;
-		private String delivery_time_from;
-		private String delivery_time_to;
+		@JsonFormat(pattern = "HH:mm:ss")
+		private LocalTime shipping_time_from;
+		@JsonFormat(pattern = "HH:mm:ss")
+		private LocalTime shipping_time_to;
+		@JsonFormat(pattern = "HH:mm:ss")
+		private LocalTime delivery_time_from;
+		@JsonFormat(pattern = "HH:mm:ss")
+		private LocalTime delivery_time_to;
 	public int getCompany_id() {
 		return company_id;
 	}
@@ -147,24 +152,7 @@ public class LoadDto {
 	public void setTrailer_used(int trailer_used) {
 		this.trailer_used = trailer_used;
 	}
-	public LocalDateTime getShipping_date() {
-		return shipping_date;
-	}
-	public void setShipping_date(LocalDateTime shipping_date) {
-		this.shipping_date = shipping_date;
-	}
-	public LocalDateTime getDelivery_date() {
-		return delivery_date;
-	}
-	public void setDelivery_date(LocalDateTime delivery_date) {
-		this.delivery_date = delivery_date;
-	}
-	public LocalDateTime getEta() {
-		return eta;
-	}
-	public void setEta(LocalDateTime eta) {
-		this.eta = eta;
-	}
+
 	
 
 	public Integer getAssigned_driver_id() {
@@ -210,31 +198,49 @@ public class LoadDto {
 	public void setTotal_records(int total_records) {
 		this.total_records = total_records;
 	}
-	public String getShipping_time_from() {
+	
+	public LocalDate getShipping_date() {
+		return shipping_date;
+	}
+	public void setShipping_date(LocalDate shipping_date) {
+		this.shipping_date = shipping_date;
+	}
+	public LocalDate getDelivery_date() {
+		return delivery_date;
+	}
+	public void setDelivery_date(LocalDate delivery_date) {
+		this.delivery_date = delivery_date;
+	}
+	public LocalDate getEta() {
+		return eta;
+	}
+	public void setEta(LocalDate eta) {
+		this.eta = eta;
+	}
+	public LocalTime getShipping_time_from() {
 		return shipping_time_from;
 	}
-	public void setShipping_time_from(String shipping_time_from) {
+	public void setShipping_time_from(LocalTime shipping_time_from) {
 		this.shipping_time_from = shipping_time_from;
 	}
-	public String getShipping_time_to() {
+	public LocalTime getShipping_time_to() {
 		return shipping_time_to;
 	}
-	public void setShipping_time_to(String shipping_time_to) {
+	public void setShipping_time_to(LocalTime shipping_time_to) {
 		this.shipping_time_to = shipping_time_to;
 	}
-	public String getDelivery_time_from() {
+	public LocalTime getDelivery_time_from() {
 		return delivery_time_from;
 	}
-	public void setDelivery_time_from(String delivery_time_from) {
+	public void setDelivery_time_from(LocalTime delivery_time_from) {
 		this.delivery_time_from = delivery_time_from;
 	}
-	public String getDelivery_time_to() {
+	public LocalTime getDelivery_time_to() {
 		return delivery_time_to;
 	}
-	public void setDelivery_time_to(String delivery_time_to) {
+	public void setDelivery_time_to(LocalTime delivery_time_to) {
 		this.delivery_time_to = delivery_time_to;
 	}
-	
 	
 	
 	
